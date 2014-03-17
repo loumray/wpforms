@@ -1,0 +1,20 @@
+{
+    "name": "loumray/wpforms",
+    "description": "Advanced forms library for development in wordpress using a real object oriented approach",
+    "keywords": ["wordpress", "plugins", "theme", "forms"],
+    "homepage": "https://github.com/loumray/wpforms",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Louis-Michel Raynauld",
+            "email": "louismichel@pweb.ca"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-4": { "WPForms\\": "src/" }
+    }
+}
