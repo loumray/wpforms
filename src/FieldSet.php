@@ -12,6 +12,8 @@ namespace WPForms;
 
 class FieldSet implements \IteratorAggregate
 {
+    protected $prefix = 'wpform-';
+
     protected $fields = array();
     protected $fieldFactory;
 
@@ -40,11 +42,11 @@ class FieldSet implements \IteratorAggregate
 
     public function __toString()
     {
-        $echo = "";
+        $echo = '<ul class="'.$this->prefix.'fieldset">';
         foreach ($this->fields as $field) {
             $echo.= $field->toHtml();
         }
-
+        $echo.="</ul>";
         return $echo;
     }
 

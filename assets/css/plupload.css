@@ -1,0 +1,240 @@
+.wpform-fieldset  {
+    display: inline-block;
+}
+
+.wpform-field  {
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-bottom: 8px;
+}
+
+.wpform-field .title {
+    display: block;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.wpform-field .dropdown {
+    float: left;
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+.wpform-field .dropdown-content {
+    overflow: hidden;
+    float: left;
+    min-width: 30px;
+    height: 16px;
+    line-height: 16px;
+    margin-right: 16px;
+    padding: 4px 5px;
+    border: 2px solid #eeeeee;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.wpform-field .dropdown-arrow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    background: #eeeeee;
+}
+
+.wpform-field .dropdown-arrow:after {
+    content: "\f140";
+    font: normal 20px/1 'dashicons';
+    speak: none;
+    display: block;
+    padding: 0;
+    text-indent: 0;
+    text-align: center;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none !important;
+    color: #333;
+}
+
+.wpform-field .dropdown-status {
+    color: #333;
+    background: #eeeeee;
+    /*display: none;*/
+    max-width: 112px;
+}
+
+/* Color Picker */
+.wpform-colorpicker .color-picker-hex {
+    display: none;
+}
+
+.wpform-colorpicker.open .color-picker-hex {
+    display: block;
+}
+
+.wpform-colorpicker .dropdown {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.wpform-colorpicker .dropdown .dropdown-content {
+    background-color: #555555;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.wpform-colorpicker .dropdown:hover .dropdown-content {
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+/*
+.wpform-field .preview-thumbnail .dropdown-content img {
+    display: block;
+    width: 100%;
+    max-width: 122px;
+    max-height: 98px;
+    margin: 0 auto;
+}
+
+
+.wpform-field .wpform-uploadimage .dropdown-content {
+    height: auto;
+    min-height: 24px;
+    min-width: 40px;
+    padding: 0;
+}
+*/
+/*
+ * Image Picker
+ */
+.wpform-uploadimage .library,
+.wpform-uploadimage .actions {
+    display: none;
+    float: left;
+    width: 100%;
+}
+
+.wpform-uploadimage.open .library,
+.wpform-uploadimage.open .actions {
+    display: block;
+}
+
+.wpform-uploadimage .dropdown-content {
+    height: auto;
+    min-height: 24px;
+    min-width: 40px;
+    padding: 0;
+}
+
+.wpform-uploadimage .dropdown-status {
+    padding: 4px 5px;
+}
+
+.wpform-uploadimage .preview-thumbnail img {
+    display: block;
+    width: 100%;
+    max-width: 122px;
+    max-height: 98px;
+    margin: 0 auto;
+}
+
+.wpform-uploadimage .actions {
+    text-align: right;
+}
+
+.wpform-uploadimage .library ul {
+    border-bottom: 1px solid #ddd;
+    float: left;
+    width: 100%;
+    margin: 10px 0 0;
+}
+
+.wpform-uploadimage .library li {
+    color: #ccc;
+    float: left;
+    padding: 3px 15px;
+    margin: 0;
+    border: 1px solid transparent;
+}
+
+.wpform-uploadimage .library li.library-selected {
+    margin-bottom: -1px;
+    padding-bottom: 4px;
+    color: #666666;
+    border-color: #ddd;
+    border-bottom-color: #fff;
+}
+
+.wpform-uploadimage .library .thumbnail {
+    display: block;
+    width: 100%;
+}
+
+.wpform-uploadimage .library .thumbnail img {
+    display: block;
+    max-width: 90%;
+    max-height: 80px;
+    margin: 5px auto;
+    padding: 2px;
+    background: #666666;
+}
+
+.wpform-uploadimage .library .thumbnail:hover img {
+    background-color: #2ea2cc;
+}
+
+.wpform-uploadimage .library-content {
+    /*display: none;*/
+    display: block;
+    width: 100%;
+    float: left;
+    padding: 10px 0;
+}
+
+.wpform-uploadimage .library-content .library-selected {
+    display: block;
+}
+
+.wpform-uploadimage .upload-fallback {
+    display: none;
+}
+
+.wpform-uploadimage .upload-dropzone {
+    /*display: none;*/
+    
+    padding: 15px 10px;
+    border: 3px dashed #dfdfdf;
+    margin: 5px auto;
+    text-align: center;
+    position: relative;
+    cursor: default;
+
+    display: block;
+    -webkit-transition: border-color 0.1s;
+    -moz-transition:    border-color 0.1s;
+    -ms-transition:     border-color 0.1s;
+    -o-transition:      border-color 0.1s;
+    transition:         border-color 0.1s;
+}
+
+.wpform-uploadimage .upload-dropzone .supports-drag-drop {
+    display: block;
+    -webkit-transition: border-color 0.1s;
+    -moz-transition:    border-color 0.1s;
+    -ms-transition:     border-color 0.1s;
+    -o-transition:      border-color 0.1s;
+    transition:         border-color 0.1s;
+}
+
+.wpform-uploadimage .library ul li {
+    cursor: pointer;
+}
+
+.wpform-uploadimage .upload-dropzone .supports-drag-drop .drag-over {
+    border-color: #83b4d8;
+}

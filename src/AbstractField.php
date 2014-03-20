@@ -12,10 +12,9 @@ namespace WPForms;
 
 abstract class AbstractField
 {
-
     protected $attributes = array();
 
-    protected $prefix = 'ocs_';
+    protected $prefix = 'wpform-';
 
     public function __construct($attributes)
     {
@@ -77,16 +76,16 @@ abstract class AbstractField
     public function toHtml()
     {
         $html = "";
+        $html.= '<li class="'.$this->prefix.'field '.$this->prefix.strtolower($this->attributes['type']).'">';
         $html.= $this->attributes['before'];
-        $html.= '<div class="'.$this->prefix.'field '.$this->prefix.'field_'.$this->attributes['type'].'">';
         $html.= $this->__toString();
         if (!empty($this->attributes['description'])) {
             $echo.= '<div class="'.$this->prefix.'field_desc">';
             $echo.= $this->attributes['description'];
             $echo.= '</div>';
         }
-        $html.= '</div>';
         $html.= $this->attributes['after'];
+        $html.= '</li>';
 
         return $html;
     }

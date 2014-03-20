@@ -1,0 +1,201 @@
+<?php
+/*
+ * This file is part of WPForms project.
+ *
+ * (c) Louis-Michel Raynauld <louismichel@pweb.ca>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace WPForms;
+
+class UploadImage extends AbstractField
+{
+
+    public function init()
+    {
+        parent::init();
+
+        add_action('admin_enqueue_scripts',array($this,'initScripts'));
+        add_action('wp_ajax_photo_gallery_upload', array($this, 'ajax'));
+
+        $this->attributes['container'] = 'plupload-upload-ui-'.$this->attributes['id'];
+        $this->attributes['browse_button'] = 'plupload-browse-button-'.$this->attributes['id'];
+        $this->attributes['drop_element'] = 'drag-drop-area-'.$this->attributes['id'];
+        $this->attributes['file_data_name'] = 'async-upload-'.$this->attributes['id'];
+        $this->attributes['extensions'] = array('jpg', 'jpeg', 'gif', 'png');
+        $this->attributes['preview_thumb_id'] = 'preview-thumb-'.$this->attributes['id'];
+    }
+
+    public function initScripts()
+    {
+        
+        // wp_enqueue_script('plupload-all');
+        
+        $baseurl = get_bloginfo('url').'/'.substr(dirname(dirname(__FILE__)), strlen(ABSPATH));
+        wp_enqueue_script('wpforms-plupload-setup', $baseurl.'/assets/js/plupload-setup.js',array('jquery','plupload-all'), false, true);
+        wp_enqueue_style('wpforms-plupload', $baseurl.'/assets/css/plupload.css');
+
+        $params[$this->attributes['id']] = array(
+            'runtimes'            => 'html5,silverlight,flash,html4',
+            'browse_button'       => $this->attributes['browse_button'],
+            'container'           => $this->attributes['container'],
+            'drop_element'        => $this->attributes['drop_element'],
+            'file_data_name'      => $this->attributes['file_data_name'],            
+            'preview_thumb_id'    => $this->attributes['preview_thumb_id'],            
+            'multiple_queues'     => false,
+            'max_file_size'       => wp_max_upload_size().'b',
+            'url'                 => admin_url('admin-ajax.php'),
+            'flash_swf_url'       => includes_url('js/plupload/plupload.flash.swf'),
+            'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
+            'filters'             => array(array('title' => __('Allowed Files'), 'extensions' => '*')),
+            'multipart'           => true,
+            'urlstream_upload'    => true,
+         
+            'multipart_params'    => array(
+                '_ajax_nonce' => wp_create_nonce('photo-upload'),
+                'action'      => 'photo_gallery_upload',
+            ),
+        );
+
+        wp_localize_script('wpforms-plupload-setup', 'wpforms_plupload_setup', $params);
+    }
+
+    public function ajax()
+    {
+        check_ajax_referer('photo-upload');
+        if (!current_user_can('upload_files')) {
+            wp_die(__('You do not have permission to upload files.'));
+        }
+        
+        $status = wp_handle_upload($_FILES[$this->attributes['file_data_name']], array('test_form'=>true, 'action' => 'photo_gallery_upload'));
+       
+        $return = array();
+        $return['success'] = true;
+        $return['data'] = $status;
+        if (!empty($status['error'])) {
+            $return['success'] = false;
+            $return['msg'] = $status['error'];
+        } else {
+          // media_handle_upload
+        }
+        // print_r($status);
+       
+        echo htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+        die();
+    }
+    /**
+     * to_html
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+      $return = "";
+      $return.= "<div id=\"".$this->attributes['container']."\" class=\"customize-image-picker hide-if-no-js\">";
+
+      $return.= "  <span class=\"title\">". esc_html( $this->attributes['label'])."</span>";
+
+      $return.= "  <div class=\"customize-control-content\">";
+      $return.= "      <div class=\"dropdown preview-thumbnail\" tabindex=\"0\">";
+      $return.= "          <div class=\"dropdown-content\">";
+      if (empty( $this->attributes['src'])) {
+          $return.= "                <img id=".$this->attributes['preview_thumb_id']." style=\"display:none;\" />";
+      } else {
+          $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['src']))."\" />";
+      }
+      $return.= "              <div class=\"dropdown-status\">".__('No Image')."</div>";
+      $return.= "          </div>";
+      $return.= "          <div class=\"dropdown-arrow\"></div>";
+      $return.= "    </div>";
+      $return.= "  </div>";
+      $return.= "  <div class=\"library\">";
+
+      // $return.= "   <div id=\"". $this->attributes['drop_element']."\">";
+      $return.= "     <div class=\"library-content library-selected\">";
+      // $return.= "      <p class=\"upload-dropzone\">". __('Drop files here')."</p>";
+      // $return.= "      <p>"._x('or', 'Uploader: Drop files here - or - Select Files')."</p>";
+      // $return.= "      <p class=\"drag-drop-buttons\"><input id=\"".$this->attributes['browse_button']."\" type=\"button\" value=\"".esc_attr__('Select File')."\" class=\"button\" /></p>";
+        $return.= "         <div id=\"". $this->attributes['drop_element']."\" class=\"upload-dropzone supports-drag-drop\">";
+        $return.=              sprintf(__('Drop a file here or'));
+        $return.= "         <input id=\"".$this->attributes['browse_button']."\" type=\"button\" value=\"".esc_attr__('Select File')."\" class=\"button\" />";
+        $return.= "         </div>";
+        $return.= "         <div class=\"upload-fallback\">";
+        $return.= "            <span class=\"button-secondary\">".__('Select File')."</span>";
+        $return.= "         </div>";
+      $return.= "    </div>";
+      $return.= "  </div>";
+      // $return.= "   </div>";
+
+      // $return.= "  <div class=\"library\">";
+      // $return.= "      <ul>";
+      // $return.= "              <li data-customize-tab='upload-new' tabindex='0'>".__('Upload New')."</li>";
+      // $return.= "              <li data-customize-tab='uploaded' tabindex='0'>".__('Uploaded New')."</li>";
+      // $return.= "      </ul>";
+      // $return.= "      <div class=\"library-content\" data-customize-tab='upload-new'>";
+      // if( !_device_can_upload()) {
+      //     $return.=        '<p>' . sprintf( __('The web browser on your device cannot be used to upload files. You may be able to use the <a href="%s">native app for your device</a> instead.'), 'http://wordpress.org/mobile/' ) . '</p>';
+      // } else {
+      //   $return.= "         <div class=\"upload-dropzone\">";
+      //   $return.=              __('Drop a file here or <a href="#" class="upload">select a file</a>.');
+      //   $return.= "         </div>";
+      //   $return.= "         <div class=\"upload-fallback\">";
+      //   $return.= "            <span class=\"button-secondary\">".__('Select File')."</span>";
+      //   $return.= "         </div>";
+      // }
+      // $return.= "      </div>";
+      // $return.= "      <div class=\"library-content\" data-customize-tab='uploaded'>";
+      // $return.= "        <div class=\"uploaded-target\"></div>";
+      // $return.= "      </div>";
+      // $return.= "  </div>";
+
+      $return.= "  <div class=\"actions\">";
+      $return.= "      <a href=\"#\" class=\"remove\">".__('Use Default Image', 'wpforms')."</a>";
+      $return.= "  </div>";
+
+      $return.= "</div>";
+      return $return;
+      /*
+      ?>
+      <div id="plupload-upload-ui" class="customize-image-picker">
+          <span class="customize-control-title"><?php echo esc_html( $this->attributes['label']); ?></span>
+
+          <div class="customize-control-content">
+              <div class="dropdown preview-thumbnail" tabindex="0">
+                  <div class="dropdown-content">
+                      <?php if ( empty( $this->attributes['src'] ) ): ?>
+                          <img style="display:none;" />
+                      <?php else: ?>
+                          <img src="<?php echo esc_url(set_url_scheme($this->attributes['src'])); ?>" />
+                      <?php endif; ?>
+                      <div class="dropdown-status"></div>
+                  </div>
+                  <div class="dropdown-arrow"></div>
+              </div>
+          </div>
+
+          <div class="library">
+              <ul>
+                  <?php /*foreach ( $this->tabs as $id => $tab ): ?>
+                      <li data-customize-tab='<?php echo esc_attr($this->attributes['id']); ?>' tabindex='0'>
+                          <?php echo esc_html( $tab['label'] ); ?>
+                      </li>
+                  <?php endforeach; *?>
+              </ul>
+              <?php //foreach ( $this->tabs as $id => $tab ): ?>
+                  <div class="library-content" data-customize-tab='<?php echo esc_attr( $this->attributes['id'] ); ?>'>
+                      <?php //call_user_func( $tab['callback'] ); ?>
+                  </div>
+              <?php //endforeach; ?>
+          </div>
+
+          <div class="actions">
+              <a href="#" class="remove"><?php _e( 'Remove Image' ); ?></a>
+          </div>
+      </div>
+      <?php
+      */
+    }
+
+}
