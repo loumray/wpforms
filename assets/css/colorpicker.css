@@ -1,0 +1,22 @@
+/* Color Picker */
+.wpform-colorpicker .color-picker-hex {
+    /*display: none;*/
+}
+
+.wpform-colorpicker.open .color-picker-hex {
+    display: block;
+}
+
+.wpform-colorpicker .dropdown {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.wpform-colorpicker .dropdown .dropdown-content {
+    background-color: #555555;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.wpform-colorpicker .dropdown:hover .dropdown-content {
+    border-color: rgba(0, 0, 0, 0.25);
+}

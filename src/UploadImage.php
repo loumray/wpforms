@@ -12,13 +12,16 @@ namespace WPForms;
 
 class UploadImage extends AbstractField
 {
-
+    protected static $params = array();
+    protected static $isSetup = false;
+    
     public function init()
     {
         parent::init();
 
-        add_action('admin_enqueue_scripts',array($this,'initScripts'));
-        add_action('wp_ajax_photo_gallery_upload', array($this, 'ajax'));
+        add_action('admin_enqueue_scripts',array($this,'initScripts'), 20);
+        add_action('admin_enqueue_scripts',array($this,'setupScripts'), 1000);
+        
 
         $this->attributes['container'] = 'plupload-upload-ui-'.$this->attributes['id'];
         $this->attributes['browse_button'] = 'plupload-browse-button-'.$this->attributes['id'];
@@ -26,18 +29,18 @@ class UploadImage extends AbstractField
         $this->attributes['file_data_name'] = 'async-upload-'.$this->attributes['id'];
         $this->attributes['extensions'] = array('jpg', 'jpeg', 'gif', 'png');
         $this->attributes['preview_thumb_id'] = 'preview-thumb-'.$this->attributes['id'];
+        $this->attributes['ajax_action'] = 'upload-image'.$this->attributes['id'];
+
+        add_action('wp_ajax_'.$this->attributes['ajax_action'], array($this, 'ajax'));
     }
 
     public function initScripts()
     {
         
-        // wp_enqueue_script('plupload-all');
-        
-        $baseurl = get_bloginfo('url').'/'.substr(dirname(dirname(__FILE__)), strlen(ABSPATH));
-        wp_enqueue_script('wpforms-plupload-setup', $baseurl.'/assets/js/plupload-setup.js',array('jquery','plupload-all'), false, true);
-        wp_enqueue_style('wpforms-plupload', $baseurl.'/assets/css/plupload.css');
+        wp_enqueue_script('wpforms-plupload-setup', $this->getBaseUrl().'/assets/js/plupload-setup.js',array('jquery','plupload-all'), false, true);
+        wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
 
-        $params[$this->attributes['id']] = array(
+        self::$params[$this->attributes['id']] = array(
             'runtimes'            => 'html5,silverlight,flash,html4',
             'browse_button'       => $this->attributes['browse_button'],
             'container'           => $this->attributes['container'],
@@ -54,22 +57,28 @@ class UploadImage extends AbstractField
             'urlstream_upload'    => true,
          
             'multipart_params'    => array(
-                '_ajax_nonce' => wp_create_nonce('photo-upload'),
-                'action'      => 'photo_gallery_upload',
+                '_ajax_nonce' => wp_create_nonce($this->attributes['ajax_action']),
+                'action'      => $this->attributes['ajax_action'],
             ),
         );
+    }
 
-        wp_localize_script('wpforms-plupload-setup', 'wpforms_plupload_setup', $params);
+    public function setupScripts()
+    {
+        if (!self::$isSetup) { 
+            wp_localize_script('wpforms-plupload-setup', 'wpforms_plupload_setup', self::$params);
+            self::$isSetup = true;
+        }
     }
 
     public function ajax()
     {
-        check_ajax_referer('photo-upload');
+        check_ajax_referer($this->attributes['ajax_action']);
         if (!current_user_can('upload_files')) {
             wp_die(__('You do not have permission to upload files.'));
         }
-        
-        $status = wp_handle_upload($_FILES[$this->attributes['file_data_name']], array('test_form'=>true, 'action' => 'photo_gallery_upload'));
+
+        $status = wp_handle_upload($_FILES[$this->attributes['file_data_name']], array('test_form'=>true, 'action' => $this->attributes['ajax_action']));
        
         $return = array();
         $return['success'] = true;
@@ -100,12 +109,17 @@ class UploadImage extends AbstractField
       $return.= "  <div class=\"customize-control-content\">";
       $return.= "      <div class=\"dropdown preview-thumbnail\" tabindex=\"0\">";
       $return.= "          <div class=\"dropdown-content\">";
-      if (empty( $this->attributes['src'])) {
+      $return.= "                <input class=\"imgurl\" type=\"hidden\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
+      if (empty( $this->attributes['value'])) {
           $return.= "                <img id=".$this->attributes['preview_thumb_id']." style=\"display:none;\" />";
       } else {
-          $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['src']))."\" />";
+          $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['value']))."\" />";
       }
-      $return.= "              <div class=\"dropdown-status\">".__('No Image')."</div>";
+      $return.= "              <div class=\"dropdown-status\">";
+      if (empty( $this->attributes['value'])) {
+          $return.= __('No Image');
+      }
+      $return.= "              </div>";
       $return.= "          </div>";
       $return.= "          <div class=\"dropdown-arrow\"></div>";
       $return.= "    </div>";

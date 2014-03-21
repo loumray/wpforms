@@ -59,6 +59,7 @@ jQuery(document).ready(function($){
                 // console.log(response);
                 $('#'+that.preview_thumb_id).attr('src',response.data.url);
                 $('#'+that.preview_thumb_id).show();
+                $('#'+that.container+' .imgurl').val(response.data.url);
                 $('#'+that.container+' .library').hide();
                 $('#'+that.container+' .actions').hide();
             } else {

@@ -47,6 +47,11 @@ abstract class AbstractField
     public function init() {}
     abstract public function __toString();
 
+    public function getBaseUrl()
+    {
+        return get_bloginfo('url').'/'.substr(dirname(dirname(__FILE__)), strlen(ABSPATH));
+    }
+
     public function attr($name, $value = null) {
         if ($name === null) {
             return $this->attributes;
