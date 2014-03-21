@@ -19,11 +19,11 @@ class WPUpload extends AbstractField
     wp_enqueue_script( 'wp-plupload' );
   }
   /**
-   * to_html
+   * render
    *
    * @return string
    */
-  public function __toString()
+  public function render()
   {
 
     ?>

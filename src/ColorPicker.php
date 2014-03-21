@@ -32,7 +32,7 @@ class ColorPicker extends AbstractField
      *
      * @return string
      */
-    public function __toString()
+    public function render()
     {
         $default = '';
         $value  = '';
@@ -58,7 +58,7 @@ class ColorPicker extends AbstractField
         $return.= "</div>";
         $return.= "</label>";
       
-        return $return;
+        echo $return;
     }
 
 }

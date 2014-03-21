@@ -10,11 +10,11 @@
 
 namespace WPForms;
 
-abstract class AbstractField
+use WPCore\Forms\FieldInterface;
+
+abstract class AbstractField implements FieldInterface
 {
     protected $attributes = array();
-
-    protected $prefix = 'wpform-';
 
     public function __construct($attributes)
     {
@@ -45,7 +45,7 @@ abstract class AbstractField
     }
 
     public function init() {}
-    abstract public function __toString();
+    abstract public function render();
 
     public function getBaseUrl()
     {
@@ -76,22 +76,5 @@ abstract class AbstractField
 
     public function removeAttr($name) {
         unset($this->attributes[$name]);
-    }
-
-    public function toHtml()
-    {
-        $html = "";
-        $html.= '<li class="'.$this->prefix.'field '.$this->prefix.strtolower($this->attributes['type']).'">';
-        $html.= $this->attributes['before'];
-        $html.= $this->__toString();
-        if (!empty($this->attributes['description'])) {
-            $echo.= '<div class="'.$this->prefix.'field_desc">';
-            $echo.= $this->attributes['description'];
-            $echo.= '</div>';
-        }
-        $html.= $this->attributes['after'];
-        $html.= '</li>';
-
-        return $html;
     }
 }

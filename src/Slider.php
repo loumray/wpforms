@@ -64,7 +64,7 @@ class Slider extends AbstractField
      *
      * @return string
      */
-    public function __toString()
+    public function render()
     {
         $return = "";
         $return.= "<div id=\"".$this->attributes['id']."\" class=\"customize-control-slider\">";
@@ -75,7 +75,7 @@ class Slider extends AbstractField
         $return.= " <div class=\"wpforms-slider wp-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"></div>";
         $return.= "</div>";
 
-        return $return;
+        echo $return;
     }
 
 }

@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "wpcore/forms": "dev-master"
     },
     "autoload": {
         "psr-4": { "WPForms\\": "src/" }

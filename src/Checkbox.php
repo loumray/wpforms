@@ -17,7 +17,7 @@ class Checkbox extends AbstractField
    *
    * @return string
    */
-  public function __toString()
+  public function render()
   {
 
     $html = "";
@@ -38,7 +38,7 @@ class Checkbox extends AbstractField
       $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
     }
 
-    return $html;
+    echo $html;
   }
 
 }

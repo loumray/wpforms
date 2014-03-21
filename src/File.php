@@ -10,12 +10,10 @@
 
 namespace WPForms;
 
-use pweb\domlib\forms\Field;
-
 class File extends AbstractField
 {
 
-  public function __toString()
+  public function render()
   {
 
     $html = "";
@@ -25,6 +23,6 @@ class File extends AbstractField
     }
     $html.= '<input type="file" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" />';
 
-    return $html;
+    echo $html;
   }
 }

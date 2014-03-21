@@ -12,12 +12,8 @@ namespace WPForms;
 
 class Select extends AbstractField
 {
-  /**
-   * to_html
-   *
-   * @return string
-   */
-  public function __toString()
+
+  public function render()
   {
     $html = "";
     if(!empty($this->attributes['label']))
@@ -57,7 +53,7 @@ class Select extends AbstractField
       }
     }
     $html.= '</select>';
-    return $html;
+    echo $html;
   }
 
 }

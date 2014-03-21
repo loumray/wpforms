@@ -99,7 +99,7 @@ class UploadImage extends AbstractField
      *
      * @return string
      */
-    public function __toString()
+    public function render()
     {
       $return = "";
       $return.= "<div id=\"".$this->attributes['container']."\" class=\"customize-image-picker hide-if-no-js\">";
@@ -169,7 +169,7 @@ class UploadImage extends AbstractField
       $return.= "  </div>";
 
       $return.= "</div>";
-      return $return;
+      echo $return;
       /*
       ?>
       <div id="plupload-upload-ui" class="customize-image-picker">

@@ -39,12 +39,8 @@ class DateTime extends AbstractField
     $js = "jQuery( '#".$this->attributes['id']."' ).datetimepicker({".$this->attributes['settings']."});\n";
     $this->addAsset(new StringAsset('datepicker-'.$this->attributes['id'], $js ));
   }
-  /**
-   * to_html
-   *
-   * @return string
-   */
-  public function __toString()
+
+  public function render()
   {
 
     $html = "";
@@ -54,7 +50,7 @@ class DateTime extends AbstractField
     }
     $html.= '<input type="text" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" value="'.$this->attributes['value'].'" />';
 
-    return $html;
+    echo $html;
   }
 
 }

@@ -10,16 +10,16 @@
 
 namespace WPForms;
 
-class FieldSet implements \IteratorAggregate
+use WPCore\Forms\FieldSetInterface;
+
+class FieldSet implements FieldSetInterface, \IteratorAggregate
 {
     protected $prefix = 'wpform-';
 
     protected $fields = array();
-    protected $fieldFactory;
 
     public function __construct()
     {
-        $this->fieldFactory  = new FieldFactory();
         add_action('init',array($this,'init'));
     }
 
@@ -33,21 +33,26 @@ class FieldSet implements \IteratorAggregate
     public function addField($field)
     {
         if (!$field instanceof AbstractField) {
-            $field = $this->fieldFactory->create($field);
+            $field = FieldFactory::create($field);
         }
         $this->fields[] = $field;
 
         return $field;
     }
 
-    public function __toString()
+    public function render()
     {
-        $echo = '<ul class="'.$this->prefix.'fieldset">';
+        echo '<ul class="'.$this->prefix.'fieldset">';
         foreach ($this->fields as $field) {
-            $echo.= $field->toHtml();
+            $html = '<li class="'.$this->prefix.'field '.$this->prefix.strtolower($field->attr('type')).'">';
+            $html.= $field->attr('before');
+            echo $html;
+            $field->render();
+            $html = $field->attr('after');
+            $html.= '</li>';
+            echo $html;
         }
-        $echo.="</ul>";
-        return $echo;
+        echo "</ul>";
     }
 
     public function getFields()

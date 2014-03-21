@@ -25,12 +25,8 @@ class Radio extends AbstractField
     //   }
     // }
   }
-  /**
-   * to_html
-   *
-   * @return string
-   */
-  public function __toString()
+
+  public function render()
   {
     $html = "";
     if(!empty($this->attributes['label']))
@@ -77,7 +73,7 @@ class Radio extends AbstractField
       $html.= '</ul>';
       $html.= $extraField;
     }
-    return $html;
+    echo $html;
   }
 
 }

@@ -42,7 +42,7 @@ class Date extends AbstractField
    *
    * @return string
    */
-  public function __toString()
+  public function render()
   {
 
     $html = "";
@@ -52,7 +52,7 @@ class Date extends AbstractField
     }
     $html.= '<input type="text" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" value="'.$this->attributes['value'].'" />';
 
-    return $html;
+    echo $html;
   }
 
 }

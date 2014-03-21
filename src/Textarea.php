@@ -12,12 +12,8 @@ namespace WPForms;
 
 class Textarea extends AbstractField
 {
-  /**
-   * to_html
-   *
-   * @return string
-   */
-  public function __toString()
+
+  public function render()
   {
 
     $html = "";
@@ -29,7 +25,7 @@ class Textarea extends AbstractField
 
     $html.= '<textarea '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" ></textarea>';
 
-    return $html;
+    echo $html;
   }
 
 }
