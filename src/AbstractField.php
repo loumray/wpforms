@@ -45,7 +45,6 @@ abstract class AbstractField implements FieldInterface
     }
 
     public function init() {}
-    abstract public function render();
 
     public function getBaseUrl()
     {

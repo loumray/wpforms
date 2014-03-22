@@ -72,6 +72,7 @@
 /*
  * Image Picker
  */
+ .wpform-uploadlibrary .actions
 .wpform-uploadimage .library,
 .wpform-uploadimage .actions {
     display: none;
@@ -84,6 +85,7 @@
     display: block;
 }
 
+.wpform-uploadlibrary .dropdown-content,
 .wpform-uploadimage .dropdown-content {
     height: auto;
     min-height: 24px;
@@ -91,10 +93,12 @@
     padding: 0;
 }
 
+.wpform-uploadlibrary .dropdown-status,
 .wpform-uploadimage .dropdown-status {
     padding: 4px 5px;
 }
 
+.wpform-uploadlibrary .preview-thumbnail img,
 .wpform-uploadimage .preview-thumbnail img {
     display: block;
     width: 100%;
@@ -103,6 +107,7 @@
     margin: 0 auto;
 }
 
+.wpform-uploadlibrary .actions,
 .wpform-uploadimage .actions {
     text-align: right;
 }
