@@ -12,33 +12,44 @@ namespace WPForms;
 
 class Checkbox extends AbstractField
 {
-  /**
-   * to_html
-   *
-   * @return string
-   */
-  public function render()
-  {
-
-    $html = "";
-    $value = "";
-    if(!empty($this->attributes['value']))
+    public function __construct($attributes)
     {
-      $value = ' value="'.$this->attributes['value'].'"';
-    }
-    $html.= '<input';
-    if(!empty($this->attributes['class']))
-    {
-      $html.= ' class="'.$this->attributes['class'].'"';
-    }
-    $html.= ' type="checkbox" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$value.' />';
+        parent::__construct($attributes);
 
-    if(!empty($this->attributes['label']))
-    {
-      $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
+        if(!isset($this->attributes['inputvalue']))
+        {
+            $this->attributes['inputvalue'] = 1;
+        }
     }
+    /**
+     * to_html
+     *
+     * @return string
+     */
+    public function render()
+    {
 
-    echo $html;
-  }
+        $html = "";
+        $value = ' value="'.$this->attributes['inputvalue'].'"';
+        $checked = "";
+        if (!empty($this->attributes['value']) && 
+            ($this->attributes['value'] == $this->attributes['inputvalue'])
+        ) {
+            $checked = ' checked="checked"';
+        }
+        $html.= '<input';
+        if(!empty($this->attributes['class']))
+        {
+            $html.= ' class="'.$this->attributes['class'].'"';
+        }
+        $html.= ' type="checkbox" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$value.$checked.' />';
+
+        if(!empty($this->attributes['label']))
+        {
+            $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
+        }
+
+        echo $html;
+    }
 
 }
