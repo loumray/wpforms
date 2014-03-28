@@ -37,6 +37,7 @@ class Checkbox extends AbstractField
         ) {
             $checked = ' checked="checked"';
         }
+        $html.= '<input type="hidden" name="'.$this->attributes['name'].'" value="0" />';
         $html.= '<input';
         if(!empty($this->attributes['class']))
         {
