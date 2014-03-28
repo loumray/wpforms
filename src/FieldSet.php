@@ -20,6 +20,8 @@ class FieldSet implements FieldSetInterface, \IteratorAggregate
 
     protected $fields = array();
 
+    protected $adminPages = array('post.php');
+
     public function __construct()
     {
         add_action('init',array($this,'init'));
@@ -37,6 +39,7 @@ class FieldSet implements FieldSetInterface, \IteratorAggregate
         if (!$field instanceof AbstractField) {
             $field = FieldFactory::create($field);
         }
+        $field->setEnqueueAdminPages($this->adminPages);
         $field->setPrefix($this->fieldPrefix);
         $this->fields[] = $field;
 

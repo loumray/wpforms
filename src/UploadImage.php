@@ -34,9 +34,11 @@ class UploadImage extends AbstractField
         add_action('wp_ajax_'.$this->attributes['ajax_action'], array($this, 'ajax'));
     }
 
-    public function initScripts()
+    public function initScripts($page)
     {
-        
+        if (!$this->enqueueCheck($page)) {
+            return;
+        }
         wp_enqueue_script('wpforms-plupload-setup', $this->getBaseUrl().'/assets/js/plupload-setup.js',array('jquery','plupload-all'), false, true);
         wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
 

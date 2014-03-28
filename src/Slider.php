@@ -37,8 +37,12 @@ class Slider extends AbstractField
         add_action('admin_enqueue_scripts',array($this,'setupScripts'), 1000);
     }
 
-    public function initScripts()
+    public function initScripts($page)
     {
+        if (!$this->enqueueCheck($page)) {
+            return;
+        }
+        
         wp_enqueue_style('wpforms-jquery-ui', $this->getBaseUrl().'/assets/css/slider.css');
         wp_enqueue_script('wpforms-slider-setup', $this->getBaseUrl().'/assets/js/slider-setup.js',array('jquery-ui-slider'), false, true);
         // wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');

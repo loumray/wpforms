@@ -18,6 +18,8 @@ abstract class AbstractField implements FieldInterface
 
     protected $attributes = array();
 
+    protected $enqueueAdminPages = array();
+
     public function __construct($attributes)
     {
         $this->attributes = $attributes;
@@ -52,6 +54,23 @@ abstract class AbstractField implements FieldInterface
         $this->attributes['name'] = $this->prefix.$this->attributes['name'];
         return $this;
     }
+
+    public function setEnqueueAdminPages($adminPages)
+    {
+        $this->enqueueAdminPages = $adminPages;
+
+        return $this;
+    }
+
+    public function enqueueCheck($page)
+    {
+        if (empty($this->enqueueAdminPages)) {
+            return true;
+        }
+        
+        return in_array($page, $this->enqueueAdminPages);
+    }
+
     public function init() {}
 
     public function getBaseUrl()

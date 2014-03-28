@@ -17,11 +17,15 @@ class ColorPicker extends AbstractField
     {
         parent::init();
 
-        add_action('admin_enqueue_scripts',array($this,'initScripts'));
+        add_action('admin_enqueue_scripts',array($this,'initScripts'), 20, 1);
     }
 
-    public function initScripts()
+    public function initScripts($page)
     {
+        if (!$this->enqueueCheck($page)) {
+            return;
+        }
+
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_script('wpforms-colorpicker-setup', $this->getBaseUrl().'/assets/js/colorpicker-setup.js',array('wp-color-picker'), false, true);
          
