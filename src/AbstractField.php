@@ -14,6 +14,8 @@ use WPCore\Forms\FieldInterface;
 
 abstract class AbstractField implements FieldInterface
 {
+    protected $prefix = '';
+
     protected $attributes = array();
 
     public function __construct($attributes)
@@ -44,11 +46,17 @@ abstract class AbstractField implements FieldInterface
         }
     }
 
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+        $this->attributes['name'] = $this->prefix.$this->attributes['name'];
+        return $this;
+    }
     public function init() {}
 
     public function getBaseUrl()
     {
-        return get_bloginfo('url').'/'.substr(dirname(dirname(__FILE__)), strlen(ABSPATH));
+        return home_url().'/'.substr(dirname(dirname(__FILE__)), strlen(ABSPATH));
     }
 
     public function attr($name, $value = null) {

@@ -16,6 +16,8 @@ class FieldSet implements FieldSetInterface, \IteratorAggregate
 {
     protected $prefix = 'wpform-';
 
+    protected $fieldPrefix = '';
+
     protected $fields = array();
 
     public function __construct()
@@ -35,11 +37,18 @@ class FieldSet implements FieldSetInterface, \IteratorAggregate
         if (!$field instanceof AbstractField) {
             $field = FieldFactory::create($field);
         }
+        $field->setPrefix($this->fieldPrefix);
         $this->fields[] = $field;
 
         return $field;
     }
 
+    public function setFieldNamePrefix($prefix)
+    {
+        $this->fieldPrefix = $prefix;
+
+        return $this;
+    }
     public function render()
     {
         echo '<ul class="'.$this->prefix.'fieldset">';
