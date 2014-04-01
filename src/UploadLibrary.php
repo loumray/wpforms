@@ -19,13 +19,13 @@ class UploadLibrary extends AbstractField
     {
         parent::init();
 
-        add_action('admin_enqueue_scripts',array($this,'initScripts'), 20);
-        add_action('admin_enqueue_scripts',array($this,'setupScripts'), 1000);
+        add_action('admin_enqueue_scripts', array($this,'initScripts'), 20);
+        add_action('admin_enqueue_scripts', array($this,'setupScripts'), 1000);
         
 
         $this->attributes['container'] = 'medialib-ui-'.$this->attributes['id'];
         $this->attributes['input']     = 'medialib-input-'.$this->attributes['id'];
-        $this->attributes['mediabutton'] = __('Select');
+        $this->attributes['mediabutton'] = __('Select', 'wpforms');
         $this->attributes['mediatype']   = 'image';
         $this->attributes['preview_thumb_id'] = 'preview-thumb-'.$this->attributes['id'];
 
@@ -37,7 +37,7 @@ class UploadLibrary extends AbstractField
             return;
         }
 
-        wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js',array('media-upload'), false, true);
+        wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js', array('media-upload'), false, true);
         wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
 
         self::$params[$this->attributes['id']] = array(
@@ -65,7 +65,7 @@ class UploadLibrary extends AbstractField
         $return = "";
         $return.= "<div id=\"".$this->attributes['container']."\" class=\"custom-media-upload hide-if-no-js\">";
 
-        $return.= "  <span class=\"title\">". esc_html( $this->attributes['label'])."</span>";
+        $return.= "  <span class=\"title\">". esc_html($this->attributes['label'])."</span>";
 
         $return.= "  <div class=\"customize-control-content\">";
         $return.= "      <div class=\"dropdown preview-thumbnail\" tabindex=\"0\">";
@@ -78,7 +78,7 @@ class UploadLibrary extends AbstractField
         }
         $return.= "              <div class=\"dropdown-status\">";
         if (empty( $this->attributes['value'])) {
-            $return.= __('No Image');
+            $return.= __('No Image', 'wpforms');
         }
         $return.= "              </div>";
         $return.= "          </div>";

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of WPForms project.
  *
  * (c) Louis-Michel Raynauld <louismichel@pweb.ca>
@@ -19,8 +19,8 @@ class UploadImage extends AbstractField
     {
         parent::init();
 
-        add_action('admin_enqueue_scripts',array($this,'initScripts'), 20);
-        add_action('admin_enqueue_scripts',array($this,'setupScripts'), 1000);
+        add_action('admin_enqueue_scripts', array($this, 'initScripts'), 20);
+        add_action('admin_enqueue_scripts', array($this, 'setupScripts'), 1000);
         
 
         $this->attributes['container'] = 'plupload-upload-ui-'.$this->attributes['id'];
@@ -39,7 +39,7 @@ class UploadImage extends AbstractField
         if (!$this->enqueueCheck($page)) {
             return;
         }
-        wp_enqueue_script('wpforms-plupload-setup', $this->getBaseUrl().'/assets/js/plupload-setup.js',array('jquery','plupload-all'), false, true);
+        wp_enqueue_script('wpforms-plupload-setup', $this->getBaseUrl().'/assets/js/plupload-setup.js', array('jquery','plupload-all'), false, true);
         wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
 
         self::$params[$this->attributes['id']] = array(
@@ -54,7 +54,7 @@ class UploadImage extends AbstractField
             'url'                 => admin_url('admin-ajax.php'),
             'flash_swf_url'       => includes_url('js/plupload/plupload.flash.swf'),
             'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
-            'filters'             => array(array('title' => __('Allowed Files'), 'extensions' => '*')),
+            'filters'             => array(array('title' => __('Allowed Files', 'wpforms'), 'extensions' => '*')),
             'multipart'           => true,
             'urlstream_upload'    => true,
          
@@ -77,7 +77,7 @@ class UploadImage extends AbstractField
     {
         check_ajax_referer($this->attributes['ajax_action']);
         if (!current_user_can('upload_files')) {
-            wp_die(__('You do not have permission to upload files.'));
+            wp_die(__('You do not have permission to upload files.', 'wpforms'));
         }
 
         $status = wp_handle_upload($_FILES[$this->attributes['file_data_name']], array('test_form'=>true, 'action' => $this->attributes['ajax_action']));
@@ -89,7 +89,7 @@ class UploadImage extends AbstractField
             $return['success'] = false;
             $return['msg'] = $status['error'];
         } else {
-          // media_handle_upload
+            // media_handle_upload
         }
         // print_r($status);
        
@@ -103,115 +103,75 @@ class UploadImage extends AbstractField
      */
     public function render()
     {
-      $return = "";
-      $return.= "<div id=\"".$this->attributes['container']."\" class=\"customize-image-picker hide-if-no-js\">";
+        $return = "";
+        $return.= "<div id=\"".$this->attributes['container']."\" class=\"customize-image-picker hide-if-no-js\">";
 
-      $return.= "  <span class=\"title\">". esc_html( $this->attributes['label'])."</span>";
+        $return.= "  <span class=\"title\">". esc_html($this->attributes['label'])."</span>";
 
-      $return.= "  <div class=\"customize-control-content\">";
-      $return.= "      <div class=\"dropdown preview-thumbnail\" tabindex=\"0\">";
-      $return.= "          <div class=\"dropdown-content\">";
-      $return.= "                <input class=\"imgurl\" type=\"hidden\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
-      if (empty( $this->attributes['value'])) {
-          $return.= "                <img id=".$this->attributes['preview_thumb_id']." style=\"display:none;\" />";
-      } else {
-          $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['value']))."\" />";
-      }
-      $return.= "              <div class=\"dropdown-status\">";
-      if (empty( $this->attributes['value'])) {
-          $return.= __('No Image');
-      }
-      $return.= "              </div>";
-      $return.= "          </div>";
-      $return.= "          <div class=\"dropdown-arrow\"></div>";
-      $return.= "    </div>";
-      $return.= "  </div>";
-      $return.= "  <div class=\"library\">";
+        $return.= "  <div class=\"customize-control-content\">";
+        $return.= "      <div class=\"dropdown preview-thumbnail\" tabindex=\"0\">";
+        $return.= "          <div class=\"dropdown-content\">";
+        $return.= "                <input class=\"imgurl\" type=\"hidden\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
+        if (empty( $this->attributes['value'])) {
+            $return.= "                <img id=".$this->attributes['preview_thumb_id']." style=\"display:none;\" />";
+        } else {
+            $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['value']))."\" />";
+        }
+        $return.= "              <div class=\"dropdown-status\">";
+        if (empty( $this->attributes['value'])) {
+            $return.= __('No Image', 'wpforms');
+        }
+        $return.= "              </div>";
+        $return.= "          </div>";
+        $return.= "          <div class=\"dropdown-arrow\"></div>";
+        $return.= "    </div>";
+        $return.= "  </div>";
+        $return.= "  <div class=\"library\">";
 
-      // $return.= "   <div id=\"". $this->attributes['drop_element']."\">";
-      $return.= "     <div class=\"library-content library-selected\">";
-      // $return.= "      <p class=\"upload-dropzone\">". __('Drop files here')."</p>";
-      // $return.= "      <p>"._x('or', 'Uploader: Drop files here - or - Select Files')."</p>";
-      // $return.= "      <p class=\"drag-drop-buttons\"><input id=\"".$this->attributes['browse_button']."\" type=\"button\" value=\"".esc_attr__('Select File')."\" class=\"button\" /></p>";
+        // $return.= "   <div id=\"". $this->attributes['drop_element']."\">";
+        $return.= "     <div class=\"library-content library-selected\">";
+        // $return.= "      <p class=\"upload-dropzone\">". __('Drop files here')."</p>";
+        // $return.= "      <p>"._x('or', 'Uploader: Drop files here - or - Select Files')."</p>";
+        // $return.= "      <p class=\"drag-drop-buttons\"><input id=\"".$this->attributes['browse_button']."\" type=\"button\" value=\"".esc_attr__('Select File')."\" class=\"button\" /></p>";
         $return.= "         <div id=\"". $this->attributes['drop_element']."\" class=\"upload-dropzone supports-drag-drop\">";
-        $return.=              sprintf(__('Drop a file here or'));
+        $return.=              __('Drop a file here or', 'wpforms');
         $return.= "         <input id=\"".$this->attributes['browse_button']."\" type=\"button\" value=\"".esc_attr__('Select File')."\" class=\"button\" />";
         $return.= "         </div>";
         $return.= "         <div class=\"upload-fallback\">";
         $return.= "            <span class=\"button-secondary\">".__('Select File')."</span>";
         $return.= "         </div>";
-      $return.= "    </div>";
-      $return.= "  </div>";
-      // $return.= "   </div>";
+        $return.= "    </div>";
+        $return.= "  </div>";
+        // $return.= "   </div>";
 
-      // $return.= "  <div class=\"library\">";
-      // $return.= "      <ul>";
-      // $return.= "              <li data-customize-tab='upload-new' tabindex='0'>".__('Upload New')."</li>";
-      // $return.= "              <li data-customize-tab='uploaded' tabindex='0'>".__('Uploaded New')."</li>";
-      // $return.= "      </ul>";
-      // $return.= "      <div class=\"library-content\" data-customize-tab='upload-new'>";
-      // if( !_device_can_upload()) {
-      //     $return.=        '<p>' . sprintf( __('The web browser on your device cannot be used to upload files. You may be able to use the <a href="%s">native app for your device</a> instead.'), 'http://wordpress.org/mobile/' ) . '</p>';
-      // } else {
-      //   $return.= "         <div class=\"upload-dropzone\">";
-      //   $return.=              __('Drop a file here or <a href="#" class="upload">select a file</a>.');
-      //   $return.= "         </div>";
-      //   $return.= "         <div class=\"upload-fallback\">";
-      //   $return.= "            <span class=\"button-secondary\">".__('Select File')."</span>";
-      //   $return.= "         </div>";
-      // }
-      // $return.= "      </div>";
-      // $return.= "      <div class=\"library-content\" data-customize-tab='uploaded'>";
-      // $return.= "        <div class=\"uploaded-target\"></div>";
-      // $return.= "      </div>";
-      // $return.= "  </div>";
+        // $return.= "  <div class=\"library\">";
+        // $return.= "      <ul>";
+        // $return.= "              <li data-customize-tab='upload-new' tabindex='0'>".__('Upload New')."</li>";
+        // $return.= "              <li data-customize-tab='uploaded' tabindex='0'>".__('Uploaded New')."</li>";
+        // $return.= "      </ul>";
+        // $return.= "      <div class=\"library-content\" data-customize-tab='upload-new'>";
+        // if( !_device_can_upload()) {
+        //     $return.=        '<p>' . sprintf( __('The web browser on your device cannot be used to upload files. You may be able to use the <a href="%s">native app for your device</a> instead.'), 'http://wordpress.org/mobile/' ) . '</p>';
+        // } else {
+        //   $return.= "         <div class=\"upload-dropzone\">";
+        //   $return.=              __('Drop a file here or <a href="#" class="upload">select a file</a>.');
+        //   $return.= "         </div>";
+        //   $return.= "         <div class=\"upload-fallback\">";
+        //   $return.= "            <span class=\"button-secondary\">".__('Select File')."</span>";
+        //   $return.= "         </div>";
+        // }
+        // $return.= "      </div>";
+        // $return.= "      <div class=\"library-content\" data-customize-tab='uploaded'>";
+        // $return.= "        <div class=\"uploaded-target\"></div>";
+        // $return.= "      </div>";
+        // $return.= "  </div>";
 
-      $return.= "  <div class=\"actions\">";
-      $return.= "      <a href=\"#\" class=\"remove\">".__('Use Default Image', 'wpforms')."</a>";
-      $return.= "  </div>";
+        $return.= "  <div class=\"actions\">";
+        $return.= "      <a href=\"#\" class=\"remove\">".__('Use Default Image', 'wpforms')."</a>";
+        $return.= "  </div>";
 
-      $return.= "</div>";
-      echo $return;
-      /*
-      ?>
-      <div id="plupload-upload-ui" class="customize-image-picker">
-          <span class="customize-control-title"><?php echo esc_html( $this->attributes['label']); ?></span>
-
-          <div class="customize-control-content">
-              <div class="dropdown preview-thumbnail" tabindex="0">
-                  <div class="dropdown-content">
-                      <?php if ( empty( $this->attributes['src'] ) ): ?>
-                          <img style="display:none;" />
-                      <?php else: ?>
-                          <img src="<?php echo esc_url(set_url_scheme($this->attributes['src'])); ?>" />
-                      <?php endif; ?>
-                      <div class="dropdown-status"></div>
-                  </div>
-                  <div class="dropdown-arrow"></div>
-              </div>
-          </div>
-
-          <div class="library">
-              <ul>
-                  <?php /*foreach ( $this->tabs as $id => $tab ): ?>
-                      <li data-customize-tab='<?php echo esc_attr($this->attributes['id']); ?>' tabindex='0'>
-                          <?php echo esc_html( $tab['label'] ); ?>
-                      </li>
-                  <?php endforeach; *?>
-              </ul>
-              <?php //foreach ( $this->tabs as $id => $tab ): ?>
-                  <div class="library-content" data-customize-tab='<?php echo esc_attr( $this->attributes['id'] ); ?>'>
-                      <?php //call_user_func( $tab['callback'] ); ?>
-                  </div>
-              <?php //endforeach; ?>
-          </div>
-
-          <div class="actions">
-              <a href="#" class="remove"><?php _e( 'Remove Image' ); ?></a>
-          </div>
-      </div>
-      <?php
-      */
+        $return.= "</div>";
+        echo $return;
     }
 
 }
