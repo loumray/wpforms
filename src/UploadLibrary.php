@@ -54,7 +54,7 @@ class UploadLibrary extends AbstractField
 
     public function setupScripts()
     {
-        if (!self::$isSetup) { 
+        if (!self::$isSetup) {
             wp_localize_script('wpforms-medialibrary-setup', 'wpforms_medialibrary_setup', self::$params);
             self::$isSetup = true;
         }
@@ -76,22 +76,26 @@ class UploadLibrary extends AbstractField
         } else {
             $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['value']))."\" />";
         }
-        $return.= "              <div class=\"dropdown-status\">";
-        if (empty( $this->attributes['value'])) {
-            $return.= __('No Image', 'wpforms');
+        
+        $displayStatus = "";
+        $displayRemove = "style=\"display: none;\"";
+        if (!empty($this->attributes['value'])) {
+            $displayStatus = "style=\"display: none;\"";
+            $displayRemove = "";
         }
-        $return.= "              </div>";
-        $return.= "          </div>";
+        $return.=               "<div class=\"dropdown-status\"$displayStatus>";
+        $return.=                 __('No Image', 'wpforms');
+        $return.=               "</div>";
+        $return.=            "</div>";
         $return.= "          <div class=\"dropdown-arrow\"></div>";
         $return.= "    </div>";
         $return.= "  </div>";
 
-        // $return.= "  <div class=\"actions\">";
-        // $return.= "      <a href=\"#\" class=\"remove\">".__('Use Default Image', 'wpforms')."</a>";
-        // $return.= "  </div>";
+        $return.= "  <div class=\"actions\">";
+        $return.= "      <a href=\"#\" $displayRemove class=\"remove\">".__('Remove', 'wpforms')."</a>";
+        $return.= "  </div>";
 
         $return.= "</div>";
         echo $return;
     }
-
 }

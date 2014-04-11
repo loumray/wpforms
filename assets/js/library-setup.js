@@ -1,16 +1,16 @@
 jQuery(document).ready(function($){
 
     var _custom_media = true,
-      _orig_send_attachment = wp.media.editor.send.attachment,
-      options = {
-          'frame': 'select',
-          'state': 'library',
-          'title':  'Select an image',//wp.media.view.l10n.addMedia,
-          'multiple': false
-      };
+        _orig_send_attachment = wp.media.editor.send.attachment,
+        options = {
+            'frame': 'select',
+            'state': 'library',
+            'title':  'Select an image',//wp.media.view.l10n.addMedia,
+            'multiple': false
+        };
 
     $('.add_media').on('click', function(){
-      _custom_media = false;
+        _custom_media = false;
     });
 
     $.each(wpforms_medialibrary_setup, function (uploaderParams) {
@@ -36,12 +36,20 @@ jQuery(document).ready(function($){
                 $("#"+that.input).val(attachment.get('url'));
                 $("#"+that.preview).attr('src', attachment.get('url'));
                 $("#"+that.preview).show();
-               
+                $('#'+that.container+' a.remove').show();
             });
             mediaBox.open();
             return false;
         });
 
+        $('#'+this.container+' a.remove').click(function(e) {
+            e.preventDefault();
+            $('#'+that.container+' .preview-thumbnail .dropdown-status').show();
+            $("#"+that.preview).hide();
+            $("#"+that.preview).attr('src', '');
+            $("#"+that.input).val('');
+            $(e.currentTarget).hide();
+        });
     });
     
 });
