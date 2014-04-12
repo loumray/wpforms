@@ -32,6 +32,10 @@ class Checkbox extends AbstractField
         $html = "";
         $value = ' value="'.$this->attributes['inputvalue'].'"';
         $checked = "";
+        if(!empty($this->attributes['label']))
+        {
+            $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
+        }
         if (!empty($this->attributes['value']) && 
             ($this->attributes['value'] == $this->attributes['inputvalue'])
         ) {
@@ -45,9 +49,9 @@ class Checkbox extends AbstractField
         }
         $html.= ' type="checkbox" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$value.$checked.' />';
 
-        if(!empty($this->attributes['label']))
+        if(!empty($this->attributes['checkbox_span']))
         {
-            $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
+            $html.= "<span>".$this->attributes['checkbox_span']."</span>";
         }
 
         echo $html;

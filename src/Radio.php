@@ -52,7 +52,7 @@ class Radio extends AbstractField
 
     if(!empty($this->attributes['options']))
     {
-      $html.= '<ul class="'.$this->key.'field_radio_group">';
+      $html.= '<ul class="'.$this->attributes['id'].' field_radio_group">';
       $extraField = "";
       foreach($this->attributes['options'] as $val => $text)
       {
@@ -67,7 +67,7 @@ class Radio extends AbstractField
         }
         $html .= "<li>";
 				$html .= "<input type=\"radio\" $id $name value=\"$val\" $selected>";
-        $html .= '<span class="'.$this->key.'radio_label">'.$text.'</span>';
+        $html .= '<span class="'.$val.'radio_label">'.$text.'</span>';
 				$html .= "</li>";
       }
       $html.= '</ul>';

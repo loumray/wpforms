@@ -26,7 +26,7 @@ class Wpeditor extends AbstractField
             $this->attributes['wpautop'] = true;
         }
         if (!isset($attributes['rows'])) {
-            $this->attributes['rows'] = 10;
+            $this->attributes['rows'] = 15;
         }
         if (!isset($attributes['editor_class'])) {
             $this->attributes['editor_class'] = '';
@@ -64,10 +64,6 @@ class Wpeditor extends AbstractField
         if (isset($this->attributes['editor_css'])) {
             $settings['editor_css'] = $this->attributes['editor_css'];
         }
-        
-        if (!empty($this->attributes['label'])) {
-            echo "<label>".$this->attributes['label']."</label>";
-        }
-        wp_editor($this->attributes['value'], $this->attributes['id'], $settings);
+        wp_editor( $this->attributes['value'], $this->attributes['id'], $settings);
     }
 }

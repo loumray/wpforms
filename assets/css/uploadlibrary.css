@@ -74,5 +74,15 @@
  .wpform-uploadlibrary .actions {
     float: left;
     width: 100%;
-    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.wpform-uploadlibrary .customize-control-content:before,
+.wpform-uploadlibrary .customize-control-content:after {
+    content: " "; 
+    display: table; 
+}
+.wpform-uploadlibrary .customize-control-content:after {
+    clear: both;
 }
