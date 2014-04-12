@@ -73,11 +73,12 @@ class Slider extends AbstractField
         $return = "";
         $return.= "<div id=\"".$this->attributes['id']."\" class=\"customize-control-slider\">";
         $return.= " <label>";
-        $return.= "     <span class=\"title\">".esc_html($this->attributes['label'])."</span>";
-        $return.= "     <input class=\"wpforms-slider-input\" type=\"text\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
+        $return.= "     <span class=\"title\">".esc_html($this->attributes['label'])."</span>";        
         $return.= " </label>";
+        $return.= " <div class=\"wpforms-slider-wrap\">";
         $return.= " <div class=\"wpforms-slider wp-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"></div>";
-        $return.= "</div>";
+        $return.= " <input class=\"wpforms-slider-input\" type=\"text\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
+        $return.= "</div><div>";
 
         echo $return;
     }

@@ -61,6 +61,10 @@ class FieldSet implements FieldSetInterface, \IteratorAggregate
             echo $html;
             $field->render();
             $html = $field->attr('after');
+            $desc = $field->attr('desc');
+            if (!empty($desc)) {
+                $html = "<div class=\"".$this->prefix."field-description\"><p>$desc</p></div>";
+            }
             $html.= '</li>';
             echo $html;
         }

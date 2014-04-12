@@ -92,7 +92,7 @@ class UploadLibrary extends AbstractField
         $return.= "  </div>";
 
         $return.= "  <div class=\"actions\">";
-        $return.= "      <a href=\"#\" $displayRemove class=\"remove\">".__('Remove', 'wpforms')."</a>";
+        $return.= "      <a href=\"#\" $displayRemove class=\"remove button\">".__('Remove', 'wpforms')."</a>";
         $return.= "  </div>";
 
         $return.= "</div>";
