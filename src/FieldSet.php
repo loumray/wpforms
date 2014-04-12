@@ -20,11 +20,11 @@ class FieldSet implements FieldSetInterface, \IteratorAggregate
 
     protected $fields = array();
 
-    protected $adminPages = array('post.php');
+    protected $adminPages = array('post.php' ,'post-new.php');
 
     public function __construct()
     {
-        add_action('init',array($this,'init'));
+        add_action('init', array($this,'init'));
     }
 
     public function init()

@@ -1,0 +1,78 @@
+.wpform-field .title {
+    display: block;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.wpform-field .dropdown {
+    float: left;
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+.wpform-field .dropdown-content {
+    overflow: hidden;
+    float: left;
+    min-width: 30px;
+    height: 16px;
+    line-height: 16px;
+    margin-right: 16px;
+    padding: 4px 5px;
+    border: 2px solid #eeeeee;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.wpform-field .dropdown-arrow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    background: #eeeeee;
+}
+
+.wpform-field .dropdown-arrow:after {
+    content: "\f140";
+    font: normal 20px/1 'dashicons';
+    speak: none;
+    display: block;
+    padding: 0;
+    text-indent: 0;
+    text-align: center;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none !important;
+    color: #333;
+}
+
+.wpform-field .dropdown-status {
+    color: #333;
+    background: #eeeeee;
+    /*display: none;*/
+    max-width: 112px;
+}
+.wpform-uploadlibrary .preview-thumbnail img {
+    display: block;
+    width: 100%;
+    max-width: 122px;
+    max-height: 98px;
+    margin: 0 auto;
+}
+.wpform-uploadlibrary .dropdown-content {
+    height: auto;
+    min-height: 24px;
+    min-width: 40px;
+    padding: 0;
+}
+.wpform-uploadlibrary .dropdown-status {
+    padding: 4px 5px;
+}
+ .wpform-uploadlibrary .actions {
+    float: left;
+    width: 100%;
+    text-align: right;
+}

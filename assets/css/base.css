@@ -1,0 +1,10 @@
+.wpform-fieldset  {
+    display: inline-block;
+}
+
+.wpform-field  {
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-bottom: 8px;
+}

@@ -27,7 +27,7 @@ abstract class AbstractField implements FieldInterface
             $this->attributes['before'] = '';
         }
 
-        if(!isset($this->attributes['after'])) {
+        if (!isset($this->attributes['after'])) {
             $this->attributes['after'] = '';
         }
 
@@ -71,21 +71,29 @@ abstract class AbstractField implements FieldInterface
         return in_array($page, $this->enqueueAdminPages);
     }
 
-    public function init() {}
+    public function init()
+    {
+        add_action('admin_enqueue_scripts', array($this, 'baseScripts'), 10);
+    }
+    public function baseScripts()
+    {
+         wp_enqueue_style('wpforms-base', $this->getBaseUrl().'/assets/css/base.css');
+    }
 
     public function getBaseUrl()
     {
         return home_url().'/'.substr(dirname(dirname(__FILE__)), strlen(ABSPATH));
     }
 
-    public function attr($name, $value = null) {
+    public function attr($name, $value = null)
+    {
         if ($name === null) {
             return $this->attributes;
         }
 
         if (is_array($name)) {
             foreach ($name as $name => $value) {
-              $this->attr($name, $value);
+                $this->attr($name, $value);
             }
 
             return $this;
@@ -100,7 +108,8 @@ abstract class AbstractField implements FieldInterface
         return $this;
     }
 
-    public function removeAttr($name) {
+    public function removeAttr($name)
+    {
         unset($this->attributes[$name]);
     }
 }
