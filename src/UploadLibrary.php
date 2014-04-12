@@ -38,7 +38,7 @@ class UploadLibrary extends AbstractField
         }
 
         wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js', array('media-upload'), false, true);
-        wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
+        wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/uploadlibrary.css');
 
         self::$params[$this->attributes['id']] = array(
             'container' => $this->attributes['container'],

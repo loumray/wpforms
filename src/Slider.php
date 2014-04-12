@@ -33,8 +33,8 @@ class Slider extends AbstractField
     {
         parent::init();
         
-        add_action('admin_enqueue_scripts',array($this,'initScripts'), 20);
-        add_action('admin_enqueue_scripts',array($this,'setupScripts'), 1000);
+        add_action('admin_enqueue_scripts', array($this, 'initScripts'), 20);
+        add_action('admin_enqueue_scripts', array($this, 'setupScripts'), 1000);
     }
 
     public function initScripts($page)
@@ -44,7 +44,7 @@ class Slider extends AbstractField
         }
         
         wp_enqueue_style('wpforms-jquery-ui', $this->getBaseUrl().'/assets/css/slider.css');
-        wp_enqueue_script('wpforms-slider-setup', $this->getBaseUrl().'/assets/js/slider-setup.js',array('jquery-ui-slider'), false, true);
+        wp_enqueue_script('wpforms-slider-setup', $this->getBaseUrl().'/assets/js/slider-setup.js', array('jquery-ui-slider'), false, true);
         // wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
 
         self::$params[$this->attributes['id']] = array(
@@ -58,7 +58,7 @@ class Slider extends AbstractField
 
     public function setupScripts()
     {
-        if (!self::$isSetup) { 
+        if (!self::$isSetup) {
             wp_localize_script('wpforms-slider-setup', 'wpforms_slider_setup', self::$params);
             self::$isSetup = true;
         }
@@ -81,5 +81,4 @@ class Slider extends AbstractField
 
         echo $return;
     }
-
 }
