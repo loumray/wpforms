@@ -10,6 +10,14 @@
     border-bottom: 1px solid #EEEEEE;
     padding-bottom: 15px;
 }
+.wpform-field:before,
+.wpform-field:after {
+    content: " "; 
+    display: table; 
+}
+.wpform-field:after {
+    clear: both;
+}
 .wpform-field.wpform-slider{
 	
 }
