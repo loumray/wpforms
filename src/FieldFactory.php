@@ -12,17 +12,17 @@ namespace WPForms;
 
 class FieldFactory
 {
-  public static function create($field)
-  {
-    if (!isset($field['type'])) {
-      throw new InvalidArgumentException("Type of field '".$field['type']."' must be set");
-    }
-    $fieldClass = __NAMESPACE__.'\\'.ucfirst($field['type']);
-    if (class_exists($fieldClass)) {
-      return new $fieldClass($field);
-    }
+    public static function create($field)
+    {
+        if (!isset($field['type'])) {
+            throw new InvalidArgumentException("Type of field must be set");
+        }
+        $fieldClass = __NAMESPACE__.'\\'.ucfirst($field['type']);
+        if (class_exists($fieldClass)) {
+            return new $fieldClass($field);
+        }
 
-    throw new InvalidArgumentException("The type of field '".$field['type']."' is not supported");
+        throw new InvalidArgumentException("The type of field '".$field['type']."' is not supported");
 
-  }
+    }
 }
