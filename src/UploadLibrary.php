@@ -15,6 +15,20 @@ class UploadLibrary extends AbstractField
     protected static $params = array();
     protected static $isSetup = false;
     
+    public function __construct($attributes)
+    {
+        parent::__construct($attributes);
+
+        //default
+        $this->attributes['suggestedWidth'] = !isset($attributes['suggestedWidth']) ? 300:$attributes['suggestedWidth'];
+        $this->attributes['suggestedHeight'] = !isset($attributes['suggestedHeight']) ? 200:$attributes['suggestedHeight'];
+        $this->attributes['allowCropping'] = !isset($attributes['allowCropping']) ? true:$attributes['allowCropping'];
+        $this->attributes['flexWidth'] = !isset($attributes['flexWidth']) ? 1:$attributes['flexWidth'];
+        $this->attributes['flexHeight'] = !isset($attributes['flexHeight']) ? 1:$attributes['flexHeight'];
+
+        $this->attributes['flexWidth'] = (int) $this->attributes['flexWidth'];
+        $this->attributes['flexHeight'] = (int) $this->attributes['flexHeight'];
+    }
     public function init()
     {
         parent::init();
@@ -28,7 +42,6 @@ class UploadLibrary extends AbstractField
         $this->attributes['mediabutton'] = __('Select', 'wpforms');
         $this->attributes['mediatype']   = 'image';
         $this->attributes['preview_thumb_id'] = 'preview-thumb-'.$this->attributes['id'];
-
     }
 
     public function initScripts($page)
@@ -36,14 +49,24 @@ class UploadLibrary extends AbstractField
         if (!$this->enqueueCheck($page)) {
             return;
         }
-
-        wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js', array('media-upload'), false, true);
+        global $wp_version;
+        if ($wp_version >= 3.9) {
+            wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js', array('media-upload', 'customize-controls', 'customize-models'), false, true);
+        } else {
+            wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js', array('media-upload'), false, true);
+        }
+        
         wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/uploadlibrary.css');
 
         self::$params[$this->attributes['id']] = array(
             'container' => $this->attributes['container'],
             'input'     => $this->attributes['input'],
             'preview'   => $this->attributes['preview_thumb_id'],
+            'allowCropping' => $this->attributes['allowCropping'],
+            'suggestedWidth'  => $this->attributes['suggestedWidth'],
+            'suggestedHeight' => $this->attributes['suggestedHeight'],
+            'flexWidth'   => $this->attributes['flexWidth'],
+            'flexHeight'  => $this->attributes['flexHeight'],
             'mediaBox'  => array(
                 'title' => $this->attributes['label'],
                 'type'  => $this->attributes['mediatype'],

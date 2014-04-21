@@ -82,7 +82,8 @@ abstract class AbstractField implements FieldInterface
 
     public function getBaseUrl()
     {
-        return home_url().'/'.substr(dirname(dirname(__FILE__)), strlen(ABSPATH));
+        $pos = strpos(dirname(dirname(__FILE__)), 'wp-content')+strlen('wp-content');
+        return content_url().'/'.substr(dirname(dirname(__FILE__)), $pos);
     }
 
     public function attr($name, $value = null)
