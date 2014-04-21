@@ -26,11 +26,13 @@ jQuery(document).ready(function($){
                 this.container = param.container;
                 this.input = param.input;
                 this.preview = param.preview;
+                this.AttachIdInput = param.AttachIdInput;
             },
 
             setImageFromURL: function(url, attachmentId, width, height) {
                 // Insert the selected attachment.
                 $('#'+this.container+' .preview-thumbnail .dropdown-status').hide();
+                $("#"+this.AttachIdInput).val(attachmentId);
                 $("#"+this.input).val(url);
                 $("#"+this.preview).attr('src', url);
                 $("#"+this.preview).show();
@@ -75,6 +77,7 @@ jQuery(document).ready(function($){
                 // Grab the selected attachment.
                 var attachment = mediaBox.state().get("selection").first();
                 $('#'+that.container+' .preview-thumbnail .dropdown-status').hide();
+                $("#"+that.AttachIdInput).val(attachment.get('id'));
                 $("#"+that.input).val(attachment.get('url'));
                 $("#"+that.preview).attr('src', attachment.get('url'));
                 $("#"+that.preview).show();

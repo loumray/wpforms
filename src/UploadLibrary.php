@@ -39,6 +39,8 @@ class UploadLibrary extends AbstractField
 
         $this->attributes['container'] = 'medialib-ui-'.$this->attributes['id'];
         $this->attributes['input']     = 'medialib-input-'.$this->attributes['id'];
+        $this->attributes['AttachIdInput'] = 'medialib-inputattach-'.$this->attributes['id'];
+        $this->attributes['AttachIdName'] = $this->attributes['name'].'AttachmentId';
         $this->attributes['mediabutton'] = __('Select', 'wpforms');
         $this->attributes['mediatype']   = 'image';
         $this->attributes['preview_thumb_id'] = 'preview-thumb-'.$this->attributes['id'];
@@ -61,6 +63,7 @@ class UploadLibrary extends AbstractField
         self::$params[$this->attributes['id']] = array(
             'container' => $this->attributes['container'],
             'input'     => $this->attributes['input'],
+            'AttachIdInput' => $this->attributes['AttachIdInput'],
             'preview'   => $this->attributes['preview_thumb_id'],
             'allowCropping' => $this->attributes['allowCropping'],
             'suggestedWidth'  => $this->attributes['suggestedWidth'],
@@ -89,10 +92,10 @@ class UploadLibrary extends AbstractField
         $return.= "<div id=\"".$this->attributes['container']."\" class=\"custom-media-upload hide-if-no-js\">";
 
         $return.= "  <span class=\"title\">". esc_html($this->attributes['label'])."</span>";
-
         $return.= "  <div class=\"customize-control-content\">";
         $return.= "      <div class=\"dropdown preview-thumbnail\" tabindex=\"0\">";
         $return.= "          <div class=\"dropdown-content\">";
+        $return.= "                <input id=\"".$this->attributes['AttachIdInput']."\" type=\"hidden\" name=\"".$this->attributes['AttachIdName']."\" />";
         $return.= "                <input class=\"imgurl\" id=\"".$this->attributes['input']."\" type=\"hidden\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
         if (empty( $this->attributes['value'])) {
             $return.= "                <img id=".$this->attributes['preview_thumb_id']." style=\"display:none;\" />";
