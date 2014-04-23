@@ -51,8 +51,12 @@ class UploadLibrary extends AbstractField
         if (!$this->enqueueCheck($page)) {
             return;
         }
-        global $wp_version;
-        if ($wp_version >= 3.9) {
+
+        $isCropScriptOn = wp_script_is('customize-models', 'registered') &&
+            get_theme_support('custom-header') &&
+            wp_script_is('customize-controls', 'registered');
+
+        if ($isCropScriptOn === true) {
             wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js', array('media-upload', 'customize-controls', 'customize-models'), false, true);
         } else {
             wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.js', array('media-upload'), false, true);
