@@ -12,31 +12,34 @@ namespace WPForms;
 
 class Text extends AbstractField
 {
-  /**
-   * __toString
-   *
-   * @return string
-   */
-  public function render()
-  {
+    /**
+     * __toString
+     *
+     * @return string
+     */
+    public function render()
+    {
 
-    $html = "";
-    if (!empty($this->attributes['label'])) {
-      $html = "<label>".$this->attributes['label']."</label>";
+        $html = "";
+        if (!empty($this->attributes['label'])) {
+            $html = "<label>".$this->attributes['label']."</label>";
+        }
+        $value = "";
+        if (!empty($this->attributes['value'])) {
+            $value = ' value="'.$this->attributes['value'].'"';
+        }
+
+        $class = "";
+        if (!empty($this->attributes['class'])) {
+            $class = ' class="'.$this->attributes['class'].'"';
+        }
+        $placeholder = "";
+        if (!empty($this->attributes['placeholder'])) {
+            $placeholder = ' placeholder="'.$this->attributes['placeholder'].'"';
+        }
+
+        $html.= '<input type="text" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$placeholder.$value.$class.' />';
+
+        echo $html;
     }
-    $value = "";
-    if (!empty($this->attributes['value'])) {
-      $value = ' value="'.$this->attributes['value'].'"';
-    }
-
-    $class = "";
-    if (!empty($this->attributes['class'])) {
-      $class = ' class="'.$this->attributes['class'].'"';
-    }
-
-    $html.= '<input type="text" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$value.$class.' />';
-
-    echo $html;
-  }
-
 }
