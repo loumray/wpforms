@@ -35,6 +35,15 @@ abstract class AbstractField implements FieldInterface
             $this->attributes['description'] = '';
         }
 
+        if (!isset($this->attributes['props'])) {
+            $this->attributes['props'] = '';
+        } elseif (is_array($this->attributes['props'])) {
+            $props = '';
+            foreach ($this->attributes['props'] as $prop => $value) {
+                $props.= $prop.'="'.$value.'" ';
+            }
+            $this->attributes['props'] = $props;
+        }
         if (!isset($this->attributes['default'])) {
             $this->attributes['default'] = "";
         }

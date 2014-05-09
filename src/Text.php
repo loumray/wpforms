@@ -38,7 +38,7 @@ class Text extends AbstractField
             $placeholder = ' placeholder="'.$this->attributes['placeholder'].'"';
         }
 
-        $html.= '<input type="text" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$placeholder.$value.$class.' />';
+        $html.= '<input type="text" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$placeholder.$value.$class.$this->attributes['props'].' />';
 
         echo $html;
     }
