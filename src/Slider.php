@@ -44,7 +44,7 @@ class Slider extends AbstractField
         }
         
         wp_enqueue_style('wpforms-jquery-ui', $this->getBaseUrl().'/assets/css/slider.css');
-        wp_enqueue_script('wpforms-slider-setup', $this->getBaseUrl().'/assets/js/slider-setup.js', array('jquery-ui-slider'), false, true);
+        wp_enqueue_script('wpforms-slider-setup', $this->getBaseUrl().'/assets/js/slider-setup.min.js', array('jquery-ui-slider'), false, true);
         // wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
 
         self::$params[$this->attributes['id']] = array(
@@ -73,7 +73,7 @@ class Slider extends AbstractField
         $return = "";
         $return.= "<div id=\"".$this->attributes['id']."\" class=\"customize-control-slider\">";
         $return.= " <label>";
-        $return.= "     <span class=\"title\">".esc_html($this->attributes['label'])."</span>";        
+        $return.= "     <span class=\"title\">".esc_html($this->attributes['label'])."</span>";
         $return.= " </label>";
         $return.= " <div class=\"wpforms-slider-wrap\">";
         $return.= " <div class=\"wpforms-slider wp-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all\"></div>";

@@ -39,7 +39,7 @@ class UploadImage extends AbstractField
         if (!$this->enqueueCheck($page)) {
             return;
         }
-        wp_enqueue_script('wpforms-plupload-setup', $this->getBaseUrl().'/assets/js/plupload-setup.js', array('jquery','plupload-all'), false, true);
+        wp_enqueue_script('wpforms-plupload-setup', $this->getBaseUrl().'/assets/js/plupload-setup.min.js', array('jquery','plupload-all'), false, true);
         wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
 
         self::$params[$this->attributes['id']] = array(

@@ -1,0 +1,1 @@
+jQuery(document).ready(function(a){a.each(wpforms_slider_setup,function(){var b=this,c=a("#"+b.container+" .wpforms-slider"),d=a("#"+b.container+" .wpforms-slider-input");c.slider({value:d.val(),min:b.min,max:b.max,step:b.step,slide:function(a,b){d.val(b.value).keyup()}}),d.val(c.slider("value"))})});
