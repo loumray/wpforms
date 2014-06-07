@@ -64,6 +64,6 @@ class Wpeditor extends AbstractField
         if (isset($this->attributes['editor_css'])) {
             $settings['editor_css'] = $this->attributes['editor_css'];
         }
-        wp_editor( $this->attributes['value'], $this->attributes['id'], $settings);
+        wp_editor($this->attributes['value'], $this->attributes['id'], $settings);
     }
 }
