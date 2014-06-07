@@ -56,7 +56,12 @@ class FieldSet implements FieldSetInterface, \IteratorAggregate
     {
         echo '<ul class="'.$this->prefix.'fieldset">';
         foreach ($this->fields as $field) {
-            $html = '<li class="'.$this->prefix.'field '.$this->prefix.strtolower($field->attr('type')).'">';
+            $fieldClass = $this->prefix.'field '.$this->prefix.strtolower($field->attr('type'));
+            $customClass = $field->attr('class');
+            if (!empty($customClass)) {
+                $fieldClass.= ' '.$customClass;
+            }
+            $html = '<li class="'.$fieldClass.'">';
             $html.= $field->attr('before');
             echo $html;
             $field->render();

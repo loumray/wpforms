@@ -23,6 +23,10 @@ abstract class AbstractField implements FieldInterface
     public function __construct($attributes)
     {
         $this->attributes = $attributes;
+        if (!isset($this->attributes['class'])) {
+            $this->attributes['class'] = '';
+        }
+
         if (!isset($this->attributes['before'])) {
             $this->attributes['before'] = '';
         }
