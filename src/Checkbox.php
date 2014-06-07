@@ -47,7 +47,7 @@ class Checkbox extends AbstractField
         {
             $html.= ' class="'.$this->attributes['class'].'"';
         }
-        $html.= ' type="checkbox" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$value.$checked.' />';
+        $html.= ' type="checkbox" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$value.$checked.$this->attributes['props'].' />';
 
         if(!empty($this->attributes['checkbox_span']))
         {
