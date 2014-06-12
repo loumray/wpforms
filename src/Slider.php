@@ -43,9 +43,12 @@ class Slider extends AbstractField
             return;
         }
         
+        $libJsUrl = $this->getBaseUrl().'/assets/js/slider-setup.min.js';
+        if (SCRIPT_DEBUG === true) {
+            $libJsUrl = $this->getBaseUrl().'/assets/js/slider-setup.js';
+        }
         wp_enqueue_style('wpforms-jquery-ui', $this->getBaseUrl().'/assets/css/slider.css');
-        wp_enqueue_script('wpforms-slider-setup', $this->getBaseUrl().'/assets/js/slider-setup.min.js', array('jquery-ui-slider'), false, true);
-        // wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/plupload.css');
+        wp_enqueue_script('wpforms-slider-setup', $libJsUrl, array('jquery-ui-slider'), false, true);
 
         self::$params[$this->attributes['id']] = array(
             'container' => $this->attributes['id'],

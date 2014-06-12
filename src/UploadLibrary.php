@@ -56,10 +56,14 @@ class UploadLibrary extends AbstractField
             get_theme_support('custom-header') &&
             wp_script_is('customize-controls', 'registered');
 
+        $libJsUrl = $this->getBaseUrl().'/assets/js/library-setup.min.js';
+        if (SCRIPT_DEBUG === true) {
+            $libJsUrl = $this->getBaseUrl().'/assets/js/library-setup.js';
+        }
         if ($isCropScriptOn === true) {
-            wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.min.js', array('media-upload', 'customize-controls', 'customize-models'), false, true);
+            wp_enqueue_script('wpforms-medialibrary-setup', $libJsUrl, array('media-upload', 'customize-controls', 'customize-models'), false, true);
         } else {
-            wp_enqueue_script('wpforms-medialibrary-setup', $this->getBaseUrl().'/assets/js/library-setup.min.js', array('media-upload'), false, true);
+            wp_enqueue_script('wpforms-medialibrary-setup', $libJsUrl, array('media-upload'), false, true);
         }
         
         wp_enqueue_style('wpforms-plupload', $this->getBaseUrl().'/assets/css/uploadlibrary.css');
