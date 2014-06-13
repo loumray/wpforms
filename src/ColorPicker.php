@@ -29,7 +29,7 @@ class ColorPicker extends AbstractField
         wp_enqueue_style('wp-color-picker');
         
         $libJsUrl = $this->getBaseUrl().'/assets/js/colorpicker-setup.min.js';
-        if (SCRIPT_DEBUG === true) {
+        if (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG === true) {
             $libJsUrl = $this->getBaseUrl().'/assets/js/colorpicker-setup.js';
         }
         wp_enqueue_script('wpforms-colorpicker-setup', $libJsUrl, array('wp-color-picker'), false, true);

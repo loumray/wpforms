@@ -57,7 +57,7 @@ class UploadLibrary extends AbstractField
             wp_script_is('customize-controls', 'registered');
 
         $libJsUrl = $this->getBaseUrl().'/assets/js/library-setup.min.js';
-        if (SCRIPT_DEBUG === true) {
+        if (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG === true) {
             $libJsUrl = $this->getBaseUrl().'/assets/js/library-setup.js';
         }
         if ($isCropScriptOn === true) {

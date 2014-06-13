@@ -44,7 +44,7 @@ class Slider extends AbstractField
         }
         
         $libJsUrl = $this->getBaseUrl().'/assets/js/slider-setup.min.js';
-        if (SCRIPT_DEBUG === true) {
+        if (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG === true) {
             $libJsUrl = $this->getBaseUrl().'/assets/js/slider-setup.js';
         }
         wp_enqueue_style('wpforms-jquery-ui', $this->getBaseUrl().'/assets/css/slider.css');
