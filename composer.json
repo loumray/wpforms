@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "wpcore/forms": "dev-master"
+        "wpcore/forms": "1.0.*"
     },
     "autoload": {
         "psr-4": { "WPForms\\": "src/" }
