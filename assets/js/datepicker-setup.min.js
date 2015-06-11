@@ -1,0 +1,1 @@
+jQuery(document).ready(function(a){a("input.wpf-datepicker").each(function(){var b=wpforms_datepicker_setup[this.id]||{};b=b.options||{},a(this).datepicker(b)})});
