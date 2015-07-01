@@ -39,7 +39,7 @@ class DatePicker extends Text
             'jquery-ui-datepicker-css',
             'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/' . $this->attributes['theme'] . '/jquery-ui.css',
             false,
-            PLUGIN_VERSION,
+            '1.0',
             false
         );
         $libJsUrl = $this->getBaseUrl().'/assets/js/datepicker-setup.min.js';
