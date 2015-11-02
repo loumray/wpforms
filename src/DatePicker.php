@@ -22,7 +22,12 @@ class DatePicker extends Text
 
         add_action('admin_enqueue_scripts', array($this,'initScripts'), 20, 1);
         add_action('admin_enqueue_scripts', array($this,'setupScripts'), 9999);
-        $this->attributes['class'] = 'wpf-datepicker';
+
+        if (!empty($this->attributes['class'])) {
+            $this->attributes['class'] .= ' ';
+        }
+
+        $this->attributes['class'] = $this->attributes['class'].'wpf-datepicker';
 
         if (empty($this->attributes['theme'])) {
             $this->attributes['theme'] = 'smoothness';
