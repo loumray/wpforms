@@ -30,7 +30,7 @@
 .wpform-textarea textarea{
 	min-height: 150px;
 }
-.wpform-textarea textarea, .wpform-text input{
+.wpform-textarea textarea, .wpform-text input, .wpform-password input{
 	width: 100%;
 }
 
