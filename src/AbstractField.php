@@ -98,7 +98,7 @@ abstract class AbstractField implements FieldInterface
         $dirFromFile = dirname(dirname(__FILE__));
         $dirFromFile = str_replace('\\', '/', $dirFromFile);
 
-        $pos = strpos($dirFromFile, 'wp-content')+strlen('wp-content');
+        $pos = strpos($dirFromFile, WP_CONTENT_DIR)+strlen(WP_CONTENT_DIR);
         return content_url().'/'.substr($dirFromFile, $pos);
     }
 
