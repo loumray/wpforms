@@ -45,6 +45,9 @@
 	color: #999999;
 	font-size:0.9em;
 }
+.wpform-field .wpform-field-description b{
+	color: #3e3c3c;
+}
 .wpform-field .wpform-field-description p:before{
 	content: "\f348";
 	display: inline-block;
