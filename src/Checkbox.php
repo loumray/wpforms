@@ -16,8 +16,7 @@ class Checkbox extends AbstractField
     {
         parent::__construct($attributes);
 
-        if(!isset($this->attributes['inputvalue']))
-        {
+        if (!isset($this->attributes['inputvalue'])) {
             $this->attributes['inputvalue'] = 1;
         }
     }
@@ -28,33 +27,28 @@ class Checkbox extends AbstractField
      */
     public function render()
     {
-
         $html = "";
         $value = ' value="'.$this->attributes['inputvalue'].'"';
         $checked = "";
-        if(!empty($this->attributes['label']))
-        {
+        if (!empty($this->attributes['label'])) {
             $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
         }
-        if (!empty($this->attributes['value']) && 
+        if (!empty($this->attributes['value']) &&
             ($this->attributes['value'] == $this->attributes['inputvalue'])
         ) {
             $checked = ' checked="checked"';
         }
         $html.= '<input type="hidden" name="'.$this->attributes['name'].'" value="0" />';
         $html.= '<input';
-        if(!empty($this->attributes['class']))
-        {
+        if (!empty($this->attributes['class'])) {
             $html.= ' class="'.$this->attributes['class'].'"';
         }
         $html.= ' type="checkbox" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'"'.$value.$checked.$this->attributes['props'].' />';
 
-        if(!empty($this->attributes['checkbox_span']))
-        {
+        if (!empty($this->attributes['checkbox_span'])) {
             $html.= "<span>".$this->attributes['checkbox_span']."</span>";
         }
 
         echo $html;
     }
-
 }

@@ -105,7 +105,7 @@ class UploadLibrary extends AbstractField
         $return.= "          <div class=\"dropdown-content\">";
         $return.= "                <input id=\"".$this->attributes['AttachIdInput']."\" type=\"hidden\" name=\"".$this->attributes['AttachIdName']."\" />";
         $return.= "                <input class=\"imgurl\" id=\"".$this->attributes['input']."\" type=\"hidden\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
-        if (empty( $this->attributes['value'])) {
+        if (empty($this->attributes['value'])) {
             $return.= "                <img id=".$this->attributes['preview_thumb_id']." style=\"display:none;\" />";
         } else {
             $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['value']))."\" />";

@@ -19,7 +19,6 @@ class Password extends AbstractField
      */
     public function render()
     {
-
         $html = "";
         if (!empty($this->attributes['label'])) {
             $html = "<label>".$this->attributes['label']."</label>";

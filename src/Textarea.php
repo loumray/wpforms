@@ -12,20 +12,16 @@ namespace WPForms;
 
 class Textarea extends AbstractField
 {
-
-  public function render()
-  {
-
-    $html = "";
-    if(!empty($this->attributes['label']))
+    public function render()
     {
-      $html = "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
+        $html = "";
+        if (!empty($this->attributes['label'])) {
+            $html = "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
+        }
+        $value = "";
+
+        $html.= '<textarea '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" ></textarea>';
+
+        echo $html;
     }
-    $value = "";
-
-    $html.= '<textarea '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" ></textarea>';
-
-    echo $html;
-  }
-
 }

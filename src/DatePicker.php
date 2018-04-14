@@ -56,7 +56,6 @@ class DatePicker extends Text
         self::$params[$this->attributes['id']] = array(
             'options' => $this->attributes['options']
         );
-        
     }
 
     public function setupScripts()

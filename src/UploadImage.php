@@ -47,8 +47,8 @@ class UploadImage extends AbstractField
             'browse_button'       => $this->attributes['browse_button'],
             'container'           => $this->attributes['container'],
             'drop_element'        => $this->attributes['drop_element'],
-            'file_data_name'      => $this->attributes['file_data_name'],            
-            'preview_thumb_id'    => $this->attributes['preview_thumb_id'],            
+            'file_data_name'      => $this->attributes['file_data_name'],
+            'preview_thumb_id'    => $this->attributes['preview_thumb_id'],
             'multiple_queues'     => false,
             'max_file_size'       => wp_max_upload_size().'b',
             'url'                 => admin_url('admin-ajax.php'),
@@ -67,7 +67,7 @@ class UploadImage extends AbstractField
 
     public function setupScripts()
     {
-        if (!self::$isSetup) { 
+        if (!self::$isSetup) {
             wp_localize_script('wpforms-plupload-setup', 'wpforms_plupload_setup', self::$params);
             self::$isSetup = true;
         }
@@ -112,13 +112,13 @@ class UploadImage extends AbstractField
         $return.= "      <div class=\"dropdown preview-thumbnail\" tabindex=\"0\">";
         $return.= "          <div class=\"dropdown-content\">";
         $return.= "                <input class=\"imgurl\" type=\"hidden\" name=\"".$this->attributes['name']."\" value=\"".$this->attributes['value']."\"/>";
-        if (empty( $this->attributes['value'])) {
+        if (empty($this->attributes['value'])) {
             $return.= "                <img id=".$this->attributes['preview_thumb_id']." style=\"display:none;\" />";
         } else {
             $return.= "                <img id=".$this->attributes['preview_thumb_id']." src=\"". esc_url(set_url_scheme($this->attributes['value']))."\" />";
         }
         $return.= "              <div class=\"dropdown-status\">";
-        if (empty( $this->attributes['value'])) {
+        if (empty($this->attributes['value'])) {
             $return.= __('No Image', 'wpforms');
         }
         $return.= "              </div>";
@@ -173,5 +173,4 @@ class UploadImage extends AbstractField
         $return.= "</div>";
         echo $return;
     }
-
 }

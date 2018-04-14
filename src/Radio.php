@@ -12,11 +12,11 @@ namespace WPForms;
 
 class Radio extends AbstractField
 {
-  public function __construct($attributes)
-  {
-    parent::__construct($attributes);
+    public function __construct($attributes)
+    {
+        parent::__construct($attributes);
 
-    // if(!empty($this->attributes['specifyoptions']))
+        // if(!empty($this->attributes['specifyoptions']))
     // {
     //   $this->factory = new FieldFactory();
     //   foreach($this->attributes['specifyoptions'] as $val => $field)
@@ -24,56 +24,48 @@ class Radio extends AbstractField
     //     $this->attributes['extrafields'][$val] = $this->factory->create($field);
     //   }
     // }
-  }
-
-  public function render()
-  {
-    $html = "";
-    if(!empty($this->attributes['label']))
-    {
-      $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
     }
+
+    public function render()
+    {
+        $html = "";
+        if (!empty($this->attributes['label'])) {
+            $html.= "<label for=\"".$this->attributes['name']."\">".$this->attributes['label']."</label>";
+        }
 
 //     $class.= '';
 //     if(!empty($this->attributes['class']))
 //     {
 //       $class.= ' class="'.$this->attributes['class'].'"';
 //     }
-    $id = "";
-    if(!empty($this->attributes['id']))
-    {
-      $id.= ' id="'.$this->attributes['id'].'"';
-    }
-    $name = "";
-    if(!empty($this->attributes['name']))
-    {
-      $name.= ' name="'.$this->attributes['name'].'"';
-    }
-
-    if(!empty($this->attributes['options']))
-    {
-      $html.= '<ul class="'.$this->attributes['id'].' field_radio_group">';
-      $extraField = "";
-      foreach($this->attributes['options'] as $val => $text)
-      {
-        $selected = "";
-        if($this->attributes['value'] == $val)
-        {
-          $selected = "checked=\"checked\"";
+        $id = "";
+        if (!empty($this->attributes['id'])) {
+            $id.= ' id="'.$this->attributes['id'].'"';
         }
-        if(!empty($this->attributes['extrafields'][$val]))
-        {
-          $extraField.= $this->attributes['extrafields'][$val]->toHtml();
+        $name = "";
+        if (!empty($this->attributes['name'])) {
+            $name.= ' name="'.$this->attributes['name'].'"';
         }
-        $html .= "<li>";
-				$html .= "<input type=\"radio\" $id $name value=\"$val\" $selected>";
-        $html .= '<span class="'.$val.'radio_label">'.$text.'</span>';
-				$html .= "</li>";
-      }
-      $html.= '</ul>';
-      $html.= $extraField;
-    }
-    echo $html;
-  }
 
+        if (!empty($this->attributes['options'])) {
+            $html.= '<ul class="'.$this->attributes['id'].' field_radio_group">';
+            $extraField = "";
+            foreach ($this->attributes['options'] as $val => $text) {
+                $selected = "";
+                if ($this->attributes['value'] == $val) {
+                    $selected = "checked=\"checked\"";
+                }
+                if (!empty($this->attributes['extrafields'][$val])) {
+                    $extraField.= $this->attributes['extrafields'][$val]->toHtml();
+                }
+                $html .= "<li>";
+                $html .= "<input type=\"radio\" $id $name value=\"$val\" $selected>";
+                $html .= '<span class="'.$val.'radio_label">'.$text.'</span>';
+                $html .= "</li>";
+            }
+            $html.= '</ul>';
+            $html.= $extraField;
+        }
+        echo $html;
+    }
 }

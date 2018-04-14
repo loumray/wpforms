@@ -12,17 +12,14 @@ namespace WPForms;
 
 class File extends AbstractField
 {
-
-  public function render()
-  {
-
-    $html = "";
-    if(!empty($this->attributes['label']))
+    public function render()
     {
-      $html = "<label>".$this->attributes['label']."</label>";
-    }
-    $html.= '<input type="file" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" />';
+        $html = "";
+        if (!empty($this->attributes['label'])) {
+            $html = "<label>".$this->attributes['label']."</label>";
+        }
+        $html.= '<input type="file" '.(isset($this->attributes['id']) ? 'id="'.$this->attributes['id'].'"': "").' name="'.$this->attributes['name'].'" />';
 
-    echo $html;
-  }
+        echo $html;
+    }
 }
