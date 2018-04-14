@@ -27,6 +27,15 @@ class Select extends AbstractField
         if (!empty($this->attributes['id'])) {
             $html.= ' id="'.$this->attributes['id'].'"';
         }
+
+        if (!empty($this->attributes['multiple']) && $this->attributes['multiple'] === true) {
+            $html.= ' multiple';
+            //Make name array if it is not to get proper multiple values set
+            if (substr($this->attributes['name'], -2) !== '[]') {
+                $this->attributes['name'] .= '[]';
+            }
+        }
+
         if (!empty($this->attributes['name'])) {
             $html.= ' name="'.$this->attributes['name'].'"';
         }
@@ -38,7 +47,11 @@ class Select extends AbstractField
         if (!empty($this->attributes['options'])) {
             foreach ($this->attributes['options'] as $val => $text) {
                 $selected = "";
-                if ($this->attributes['value'] == $val) {
+                if (is_array($this->attributes['value']) &&
+                    in_array($val, $this->attributes['value'])
+                ) {
+                    $selected = "selected=\"selected\"";
+                } elseif ($this->attributes['value'] == $val) {
                     $selected = "selected=\"selected\"";
                 }
                 $html .= "<option value=\"$val\" $selected>$text</option>";
