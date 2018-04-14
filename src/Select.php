@@ -27,20 +27,22 @@ class Select extends AbstractField
         if (!empty($this->attributes['id'])) {
             $html.= ' id="'.$this->attributes['id'].'"';
         }
-
+        
         if (!empty($this->attributes['multiple']) && $this->attributes['multiple'] === true) {
             $html.= ' multiple';
-            //Make name array if it is not to get proper multiple values set
+            //Make name array if it is not
             if (substr($this->attributes['name'], -2) !== '[]') {
                 $this->attributes['name'] .= '[]';
+            }
+
+            $data = @unserialize($this->attributes['value']);
+            if ($data !== false) {
+                $this->attributes['value'] = $data;
             }
         }
 
         if (!empty($this->attributes['name'])) {
             $html.= ' name="'.$this->attributes['name'].'"';
-        }
-        if (!empty($this->attributes['multiple']) && $this->attributes['multiple'] === true) {
-            $html.= ' multiple';
         }
         $html.= $this->attributes['props'].'>';
 
